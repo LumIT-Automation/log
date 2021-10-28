@@ -7,6 +7,7 @@ License:    GPLv3+
 Source0:    RPM_SOURCE
 
 Requires:   syslog-ng
+Conflicts:  rsyslog
 
 BuildArch:  noarch
 
