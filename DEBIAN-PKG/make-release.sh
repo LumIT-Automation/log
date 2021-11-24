@@ -109,15 +109,13 @@ function System_systemFilesSetup()
     cp -R etc $workingFolderPath
     cp -R var $workingFolderPath
 
-    rm -f $workingFolderPath/var/log/automation/api-cisconx/placeholder
-    rm -f $workingFolderPath/var/log/automation/api-infoblox/placeholder
-    rm -f $workingFolderPath/var/log/automation/api-f5/placeholder
-    rm -f $workingFolderPath/var/log/automation/sso/placeholder
-    rm -f $workingFolderPath/var/log/automation/uif/placeholder
-    rm -f $workingFolderPath/var/log/automation/uib/placeholder
-    rm -f $workingFolderPath/var/log/automation/revp/placeholder
-    rm -f $workingFolderPath/var/log/automation/dns/placeholder
+    # Exclude api conf files from the package (moved to apis packages).
+    find $workingFolderPath -type f \( -name '01_filter-api-*.conf' -o -name '02_dst-api-*.conf' -o -name '03_log-api-*.conf' \) -exec rm -f {} \;
+    # Exclude api /var/log directories from the package (moved to apis packages).
+    find $workingFolderPath/var/log/automation -type d -name 'api-*' -prune -exec rm -rf {} \;
 
+    # Cleanup.
+    find $workingFolderPath/var/log/automation -type f -name placeholder -exec rm rf {} \;
 
     # Forcing standard permissions (755 for folders, 644 for files, owned by root:root.
     chown -R root:root $workingFolderPath
