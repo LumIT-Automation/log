@@ -53,7 +53,7 @@ function System_run()
 function System_checkEnvironment()
 {
     if [ -f /etc/os-release ]; then
-        if ! grep -q 'Debian GNU/Linux 11 (bullseye)' /etc/os-release; then
+        if ! grep -q 'bullseye' /etc/os-release; then
             return 1
         fi
     else
@@ -107,7 +107,7 @@ function System_systemFilesSetup()
 
     # Setting up system files.
     cp -R etc $workingFolderPath
-    cp -R var $workingFolderPath
+    cp -R usr $workingFolderPath
 
     # Forcing standard permissions (755 for folders, 644 for files, owned by root:root.
     chown -R root:root $workingFolderPath
