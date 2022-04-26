@@ -5,7 +5,7 @@
  compress
  delaycompress
  notifempty
- create 640 root adm
+ copytruncate
  postrotate
     invoke-rc.d syslog-ng reload > /dev/null
 endscript
