@@ -44,7 +44,7 @@ function System_run()
 
             echo "Created /tmp/$rpmPackage"
         else
-            echo "A Debian Buster operating system is required for the deb-ification. Aborting."
+            echo "A Debian Bullseye operating system is required for the deb-ification. Aborting."
             exit 1
         fi
     else
@@ -105,37 +105,28 @@ function System_definitions()
 
 
 function System_cleanup()
-{   
-    # List of the directories to be deleted.
-    rmDirs="$workingFolderPath"
-    for dir in $rmDirs; do
-        if [ -d "$dir" ]; then
-            rm -fR "$dir"
+{
+    if [ -n "$workingFolderPath" ]; then
+        if [ -d "$workingFolderPath" ]; then
+            rm -fR "$workingFolderPath"
         fi
-    done
+    fi
 }
 
 
 function System_systemFilesSetup()
 {
+    # Create a new working folder and populate it.
+    mkdir $workingFolderPath
+
     # Setting up system files.
-    mkdir "$workingFolderPath"
-
     cp -R etc $workingFolderPath
-    cp -R var $workingFolderPath
+    cp -R usr $workingFolderPath
 
-    # Exclude api conf files from the package (moved to apis packages).
-    find $workingFolderPath -type f \( -name '01_filter-api-*.conf' -o -name '02_dst-api-*.conf' -o -name '03_log-api-*.conf' \) -exec rm -f {} \;
-    # Exclude api /var/log directories from the package (moved to apis packages).
-    find $workingFolderPath/var/log/automation -type d -name 'api-*' -prune -exec rm -rf {} \;
-
-    # Cleanup.
-    find $workingFolderPath/var/log/automation -type f -name placeholder -exec rm -rf {} \;
-
-    # Forcing permissions (755 for folders, 644 for files, owned by root:root.
+    # Forcing standard permissions (755 for folders, 644 for files, owned by root:root.
     chown -R root:root $workingFolderPath
-    find $workingFolderPath -type d -exec chmod 0750 {} \;
-    find $workingFolderPath -type f -exec chmod 0640 {} \;
+    find $workingFolderPath -type d -exec chmod 750 {} \;
+    find $workingFolderPath -type f -exec chmod 640 {} \;
 }
 
 
