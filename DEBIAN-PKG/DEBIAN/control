@@ -1,7 +1,7 @@
 Package: automation-interface-log
 Version: RELEASE
 Architecture: all
-Depends: syslog-ng (>= 3.19)
+Depends: syslog-ng (>= 3.19), podman (>= 3.0.1)
 Maintainer: LumIT A-Team, automation@lumit.it
 Homepage: https://www.lumit.it
 Description: Automation Interface Syslog (commit: GITCOMMIT).
