@@ -35,6 +35,7 @@ source s_tcp_rfc5424 {
         port(601)
         transport(\"tcp\")
         ip-protocol(4)
+        max-connections(30)
     );
     syslog(
         ip(127.0.0.1)
