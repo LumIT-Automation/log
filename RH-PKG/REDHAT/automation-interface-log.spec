@@ -6,7 +6,7 @@ Summary:    Automation Interface Syslog (commit: GITCOMMIT).
 License:    GPLv3+
 Source0:    RPM_SOURCE
 
-Requires:   syslog-ng, podman >= 3.0.1
+Requires:   syslog-ng, podman >= 4.3
 Conflicts:  rsyslog
 
 BuildArch:  noarch
