@@ -82,6 +82,7 @@ function System_definitions()
         exit 1
     fi
 
+    git config --global --add safe.directory $(pwd)
     debCurrentGitCommit=$(git log --pretty=oneline | head -1 | awk '{print $1}')
 
     projectName="automation-interface-log_${debPackageRelease}_all"

@@ -93,6 +93,8 @@ function System_definitions()
     shortName="log"
     debArch="all"
     rpmArch="noarch"
+
+    git config --global --add safe.directory $(pwd)
     debCurrentGitCommit=$(git log --pretty=oneline | head -1 | awk '{print $1}')
 
     projectName="automation-interface-log"
