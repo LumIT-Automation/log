@@ -7,6 +7,6 @@
  notifempty
  copytruncate
  postrotate
-    invoke-rc.d syslog-ng reload > /dev/null
-endscript
+   systemctl stop syslog-ng && sleep 2 && systemctl start syslog-ng > /dev/null
+ endscript
 }
